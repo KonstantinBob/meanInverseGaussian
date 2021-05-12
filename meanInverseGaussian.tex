@@ -1,0 +1,59 @@
+\documentclass{scrreprt}
+%\usepackage[ngerman]{babel}
+\usepackage{ucs}
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{listings} \lstset{numbers=left, numberstyle=\tiny, numbersep=5pt} \lstset{language=C++} 
+\setlength{\parindent}{0em}
+\setlength{\parskip}{2.0ex plus 1.0ex minus 0.5ex}
+\usepackage{geometry}%[a4paper,text={160mm,255mm},centering,headsep=5mm,footskip=10mm]
+\geometry{a4paper,left=35mm,right=35mm, top=33mm, bottom=66mm}
+\renewcommand*\chapterheadstartvskip{\vspace*{-6ex}}
+\setkomafont{disposition}{\normalcolor\bfseries}
+\setkomafont{descriptionlabel}{\normalcolor\bfseries}
+\renewcommand{\d}{{\mathrm{d}}}
+\newcommand{\com}[1]{}
+\begin{document}%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\chapter*{Computation of the mean of an inverse Gaussian distribution}
+Consider an inverse Gaussian distribution with location parameter $mu$ and scale parameter $\lambda$. The pdf is given as
+\begin{equation*}
+ f(x;\mu ,\lambda )= \sqrt{\frac{\lambda }{2\pi x^{3}}} \exp \left( \frac{\lambda (x-\mu )^{2}}{2\mu ^{2}x} \right).
+\end{equation*}
+We are interested in computing the mean, i.e.
+\begin{equation*}
+\mathrm{E}[x] = \int_{0}^{\infty}\d x\,x\sqrt{\frac{\lambda }{2\pi x^{3}}} \exp \left( \frac{\lambda (x-\mu )^{2}}{2\mu ^{2}x} \right).
+\end{equation*}
+In order to do that consider $t > 0$ and define a function $g$
+\begin{equation*}
+g(t) = \int_{0}^{\infty}\d x\sqrt{\frac{\lambda }{2\pi x^{3}}} \exp \left( \frac{\lambda (tx-\mu )^{2}}{2\mu ^{2}x} \right).
+\end{equation*}
+The integral can be solved by the substitution $tx \rightarrow z$:
+\begin{align*}
+g(t)&=\int_{0}^{\infty}\d z\frac{1}{t}\sqrt{\frac{\lambda t^3}{2\pi x^{3}}} \exp \left( \frac{\lambda t(z-\mu )^{2}}{2\mu ^{2}z} \right)\\
+&=\int_{0}^{\infty}\d z\sqrt{\frac{\lambda t}{2\pi x^{3}}} \exp \left( \frac{\lambda t(z-\mu )^{2}}{2\mu ^{2}z} \right)\\
+&=1
+\end{align*}
+In the last line we used that the integral is the normalization of an inverse Gaussian distribution with location parameter $mu$ and scale parameter $\lambda t$.
+
+Now we compute 
+\begin{align*}
+\frac{\partial g(t)}{\partial t}&=\int_{0}^{\infty}\d x\sqrt{\frac{\lambda }{2\pi x^{3}}} \exp \left( \frac{\lambda (tx-\mu )^{2}}{2\mu ^{2}x} \right)\left(- \lambda\frac{tx-\mu}{2 \mu^2 x}x\right)\\
+&=-\frac{\lambda}{2 \mu^2}\left(t\mathrm{E}[x]-\mu\right)\\
+\end{align*}
+
+If we compare that with above, where $g(t) = 1 $ and thus  $\frac{\partial g(t)}{\partial t}=0$, we find
+\begin{equation*}
+t\mathrm{E}[x]-\mu = 0.
+\end{equation*}
+By setting $t = 1$ we obtain
+\begin{equation*}
+\mathrm{E}[x] = \mu.
+\end{equation*}
+\end{document}%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
